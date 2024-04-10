@@ -4,6 +4,7 @@ SELECT _FILE,
        NAME,
        TITLE,
        CITY,
+       ADDRESS,
        ANNUAL_SALARY,
        CAST(SUBSTRING(HIRE_DATE, 5, 12) AS DATE) as HIRE_DATE,
        _MODIFIED AS _MODIFIED_TS
