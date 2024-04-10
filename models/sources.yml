@@ -14,10 +14,6 @@ sources:
             count: 5
             period: day
         loaded_at_field: _fivetran_synced
-  - name: snowflake
-    database: LOAD
-    schema: SNOWFLAKE_DB_WEB_SCHEMA
-    tables:
       - name: page_views
         freshness:
           warn_after:
@@ -27,7 +23,6 @@ sources:
             count: 5
             period: day
         loaded_at_field: _fivetran_synced
-  
   - name: google_drive
     database: LOAD
     schema: GDRIVE_HR_FINANCE_RETURNS
@@ -41,10 +36,6 @@ sources:
             count: 5
             period: day
         loaded_at_field: _fivetran_synced
-  - name: google_drive
-    database: LOAD
-    schema: GDRIVE_HR_FINANCE_RETURNS
-    tables:
       - name: hr_quits
         freshness:
           warn_after:
