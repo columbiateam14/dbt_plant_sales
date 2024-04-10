@@ -1,0 +1,47 @@
+version: 2
+
+sources:
+  - name: snowflake
+    database: LOAD
+    schema: SNOWFLAKE_DB_WEB_SCHEMA
+    tables:
+      - name: item_views
+        freshness:
+          warn_after:
+            count: 1
+            period: day
+          error_after:
+            count: 5
+            period: day
+        loaded_at_field: _fivetran_synced
+      - name: page_views
+        freshness:
+          warn_after:
+            count: 1
+            period: day
+          error_after:
+            count: 5
+            period: day
+        loaded_at_field: _fivetran_synced
+  - name: google_drive
+    database: LOAD
+    schema: GDRIVE_HR_FINANCE_RETURNS
+    tables:
+      - name: hr_joins
+        freshness:
+          warn_after:
+            count: 1
+            period: day
+          error_after:
+            count: 5
+            period: day
+        loaded_at_field: _fivetran_synced
+      - name: hr_quits
+        freshness:
+          warn_after:
+            count: 1
+            period: day
+          error_after:
+            count: 5
+            period: day
+        loaded_at_field: _fivetran_synced
