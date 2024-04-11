@@ -45,3 +45,21 @@ sources:
             count: 5
             period: day
         loaded_at_field: _fivetran_synced
+      - name: expenses
+        freshness:
+          warn_after:
+            count: 1
+            period: day
+          error_after:
+            count: 5
+            period: day
+        loaded_at_field: _fivetran_synced
+      - name: returns
+        freshness:
+          warn_after:
+            count: 1
+            period: day
+          error_after:
+            count: 5
+            period: day
+        loaded_at_field: _fivetran_synced
