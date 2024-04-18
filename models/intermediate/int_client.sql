@@ -20,5 +20,3 @@ INNER JOIN
     {{ ref('base_snowflake__orders') }} o ON LatestOrders.SESSION_ID = o.SESSION_ID AND LatestOrders.LatestOrderTime = o.ORDER_AT_TS
 INNER JOIN 
     {{ ref('base_snowflake__sessions') }} s ON o.SESSION_ID = s.SESSION_ID
-WHERE
-    o._FIVETRAN_DELETED = FALSE AND s._FIVETRAN_DELETED = FALSE
