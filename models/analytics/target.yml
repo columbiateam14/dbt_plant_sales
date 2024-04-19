@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: dim_client
+    description: The client dimension table. This includes all clients that have ordered.
+    columns:
+      - name: client_id
+        description: The unique id assigned to each client
+        tests:
+          - unique
+          - not_null
+  - name: fact_order
+    description: Every order that has been placed.
+    columns:
+      - name: TOTAL_AMOUNT_CUSTOMER_PAID
+        description: The amount a customer paid for an order, regardless of if they later received a refund.
+        tests:
+          - not_null
