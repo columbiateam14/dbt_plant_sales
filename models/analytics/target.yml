@@ -89,14 +89,15 @@ models:
     columns:
       - name: order_id
         description: The unique id assigned to each order
+        tests:
+          - unique 
+          - not_null
       - name: order_at_ts
         description: The timestamp an order was placed at
       - name: returned_date
         description: The date that an order was returned if it was returned (otherwise, it's null)
       - name: is_refunded
         description: Whether or not an order was refunded if it was returned (yes/no). Otherwise, if the item was not returned, it's displayed as "not returned"
-        tests:
-          - not_null
       - name: total_cart_quantity
         description: Total amount of units across all plant types in cart being purchased
       - name: cost_of_plants
