@@ -9,10 +9,114 @@ models:
         tests:
           - unique
           - not_null
+      - name: state
+        description: The US state the client's most recent order was delivered to
+      - name: shipping_address
+        description: The encrypted shipping address the client's most recent order was delivered to
+      - name: phone
+        description: The encrypted phone number corresponding to the client's most recent order was delivered to
+      - name: ip
+        description: The client's IP address used to place their most recent order
+      - name: os
+        description: The client's OS used to place their most recent order
+      - name: most_recent_order_at_ts
+        description: The timestamp of the client's most recently placed order
+
+  - name: dim_employee
+    description: The employee dimension table. Every employee that has ever been hired.
+    columns:
+      - name: employee_id
+        description: The unique id assigned to each employee
+        tests:
+          - unique
+      - name: title
+        description: The employee's job title
+      - name: annual_salary
+        description: The employee's salary (in USD)
+      - name: hire_date
+        description: The date employee began employment
+      - name: quit_date
+        description: The date (if any) the employee terminated employment for any reason
+      - name: did_quit
+        description: Whether or not (yes/no) the employee is no longer employed
+        tests:
+          - not_null
+
+  - name: dim_hr_event
+    description: The HR event-level dimension table. Every individual hire/quit event that has occurred.
+    columns:
+      - name: employee_id
+        description: The unique id assigned to each employee
+      - name: title
+        description: The employee's job title
+      - name: annual_salary
+        description: The employee's salary (in USD)
+      - name: event_date
+        description: The date the event took place
+        tests:
+          - not_null
+      - name: event_type
+        description: The type of event (hire or quit)
+        tests:
+          - not_null
+
+  - name: dim_item
+    description: The item-level dimension table. This includes all unique items ever added to cart or purchased.
+    columns:
+      - name: item_name
+        description: The unique name of each plant
+        tests:
+          - unique
+      - name: price_per_unit_array
+        description: Array of all per-unit prices the plant has been offered at when added to cart or purchased
+        tests:
+          - not_null
+      - name: total_added_to_cart
+        description: Total amount of units that have ever been added to cart
+      - name: total_removed_from_cart
+        description: Total amount of units that have ever been removed from cart
+      - name: total_quantity_ordered
+        description: Total amount of units that have ever been purchased
+        tests:
+          - not_null
+      - name: total_plant_profit
+        description: Total revenue over all time made from the sale of a given plant type
+        tests:
+          - not_null
+
   - name: fact_order
     description: Every order that has been placed.
     columns:
-      - name: TOTAL_AMOUNT_CUSTOMER_PAID
-        description: The amount a customer paid for an order, regardless of if they later received a refund.
+      - name: order_id
+        description: The unique id assigned to each order
+      - name: order_at_ts
+        description: The timestamp an order was placed at
+      - name: returned_date
+        description: The date that an order was returned if it was returned (otherwise, it's null)
+      - name: is_refunded
+        description: Whether or not an order was refunded if it was returned (yes/no). Otherwise, if the item was not returned, it's displayed as "not returned"
         tests:
           - not_null
+      - name: total_cart_quantity
+        description: Total amount of units across all plant types in cart being purchased
+      - name: cost_of_plants
+        description: Raw cost of plants purchased in an order based solely on per-unit prices
+      - name: total_amount_customer_paid
+        description: The amount paid for an order including shipping, tax, and the raw cost of plants
+        tests:
+          - not_null
+      - name: total_amount_received
+        description: The amount received from an order including shipping, tax, and the raw cost of plants. If refunded, amount received is 0.
+        tests:
+          - not_null
+      - name: shipping_cost
+        description: The cost of shipping incurred from given order
+      - name: tax_rate
+        description: The tax rate used to calculate tax paid by customer
+      - name: payment_method
+        description: The type of payment used to pay for order
+      - name: state
+        description: The US state the order was delivered to
+
+
+
