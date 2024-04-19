@@ -118,5 +118,55 @@ models:
       - name: state
         description: The US state the order was delivered to
 
+  - name: fact_session
+    description: Every session for the user events.
+    columns:
+      - name: SESSION_ID
+        description: The unique identifier assigned to each session.
+        tests:
+          - not_null
+          - unique
+      - name: SESSION_AT_TS
+        description: The timestamp indicating when the session occurred.
+      - name: CLIENT_ID
+        description: The unique identifier assigned to each client.
+        tests:
+          - not_null
+      - name: DID_ORDER
+        description: Indicates whether the client placed an order during the session ('yes' or 'no').
+      - name: IP
+        description: The IP address of the client's device during the session.
+      - name: OS
+        description: The Operating System of the client's device used during the session.
+      - name: PAGE_VIEW_NAMES
+        description: A concatenated string of all page names visited by the client in the session.
+      - name: ITEM_TYPE_NUM
+        description: The count of different types of items viewed during the session.
+      - name: TOTAL_ITEM
+        description: The total number of items interacted with during the session.
+      - name: TOTAL_ADDED_TO_CART
+        description: The total number of items added to the shopping cart during the session.
+      - name: TOTAL_REMOVED_FROM_CART
+        description: The total number of items removed from the shopping cart during the session.
+
+  - name: daily_finances
+    description: Daily finance decomposition and the daily profits.
+    columns:
+      - name: FINANCE_DATE
+        description: The date for which the financial summary is calculated.
+        tests:
+          - not_null
+          - unique
+      - name: DAILY_TOTAL_EXPENSE
+        description: The total expenses incurred on a given day.
+      - name: DAILY_TOTAL_REFUND
+        description: The total amount refunded to customers on a given day.
+      - name: DAILY_TOTAL_REVENUE
+        description: The total revenue generated from all sales before expenses and refunds on a given day.
+      - name: DAILY_TOTAL_PROFIT
+        description: The net profit calculated as total revenue minus total expenses and refunds for the day.
+      
+
+
 
 
