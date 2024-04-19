@@ -8,7 +8,6 @@ models:
         description: The unique id assigned to each client
         tests:
           - unique
-          - not_null
       - name: state
         description: The US state the client's most recent order was delivered to
       - name: shipping_address
@@ -21,6 +20,8 @@ models:
         description: The client's OS used to place their most recent order
       - name: most_recent_order_at_ts
         description: The timestamp of the client's most recently placed order
+        tests:
+          - not_null
 
   - name: dim_employee
     description: The employee dimension table. Every employee that has ever been hired.
@@ -90,14 +91,15 @@ models:
       - name: order_id
         description: The unique id assigned to each order
         tests:
-          - unique 
-          - not_null
+          - unique
       - name: order_at_ts
         description: The timestamp an order was placed at
       - name: returned_date
         description: The date that an order was returned if it was returned (otherwise, it's null)
       - name: is_refunded
         description: Whether or not an order was refunded if it was returned (yes/no). Otherwise, if the item was not returned, it's displayed as "not returned"
+        tests:
+          - not_null
       - name: total_cart_quantity
         description: Total amount of units across all plant types in cart being purchased
       - name: cost_of_plants
@@ -125,7 +127,6 @@ models:
       - name: SESSION_ID
         description: The unique identifier assigned to each session.
         tests:
-          - not_null
           - unique
       - name: SESSION_AT_TS
         description: The timestamp indicating when the session occurred.
@@ -141,8 +142,12 @@ models:
         description: The Operating System of the client's device used during the session.
       - name: PAGE_VIEW_NAMES
         description: A concatenated string of all page names visited by the client in the session.
+        tests:
+          - not_null
       - name: ITEM_TYPE_NUM
         description: The count of different types of items viewed during the session.
+        tests:
+          - not_null
       - name: TOTAL_ITEM
         description: The total number of items interacted with during the session.
       - name: TOTAL_ADDED_TO_CART
@@ -156,7 +161,6 @@ models:
       - name: FINANCE_DATE
         description: The date for which the financial summary is calculated.
         tests:
-          - not_null
           - unique
       - name: DAILY_TOTAL_EXPENSE
         description: The total expenses incurred on a given day.
@@ -166,6 +170,8 @@ models:
         description: The total revenue generated from all sales before expenses and refunds on a given day.
       - name: DAILY_TOTAL_PROFIT
         description: The net profit calculated as total revenue minus total expenses and refunds for the day.
+        tests:
+          - not_null
       
 
 
