@@ -20,7 +20,6 @@ WITH OrderData AS (
     FROM {{ ref('base_snowflake__orders') }} AS oo
     LEFT JOIN {{ ref('base_google_drive__returns') }} AS rr ON oo.ORDER_ID = rr.ORDER_ID
     LEFT JOIN {{ ref('base_snowflake__item_views') }} AS ii ON oo.session_id = ii.session_id
-    WHERE (ii.ADD_TO_CART_QUANTITY - ii.REMOVE_FROM_CART_QUANTITY) <> 0
 )
 SELECT
     ORDER_ID,
@@ -33,9 +32,9 @@ SELECT
     ITEM_NAME,
     ITEM_VIEW_AT_TS,
     PRICE_PER_UNIT,
+    CART_QUANTITY,
     ADD_TO_CART_QUANTITY,
     REMOVE_FROM_CART_QUANTITY,
-    CART_QUANTITY,
     PRICE_PER_QUANTITY,
     CASE
         WHEN row_num = 1 THEN (CART_QUANTITY * PRICE_PER_UNIT) * (1 + TAX_RATE) + SHIPPING_COST
