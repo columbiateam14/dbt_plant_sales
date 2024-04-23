@@ -9,5 +9,11 @@ SELECT
   TOTAL_ADDED_TO_CART,
   TOTAL_REMOVED_FROM_CART,
   TOTAL_ITEM,
-  DID_ORDER
+  DID_ORDER,
+  CASE WHEN DID_ORDER = true THEN 'Ordered'
+    WHEN PAGE_VIEW_NAMES LIKE '%cart%' THEN 'Viewed Cart' 
+    WHEN TOTAL_ADDED_TO_CART > 0 THEN 'Added to Cart'
+    WHEN PAGE_VIEW_NAMES LIKE '%shop_plants%' THEN 'Explored'
+    ELSE 'Started' 
+  END AS FINAL_STATUS
 FROM {{ ref('int_session') }}
